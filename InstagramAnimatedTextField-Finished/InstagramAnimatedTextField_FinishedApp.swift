@@ -9,9 +9,9 @@ import SwiftUI
 
 @main
 struct InstagramAnimatedTextField_FinishedApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
-    }
+	var body: some Scene {
+		WindowGroup {
+			ContentView()
+		}
+	}
 }
