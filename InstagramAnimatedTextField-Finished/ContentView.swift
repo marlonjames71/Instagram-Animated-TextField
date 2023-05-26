@@ -50,47 +50,6 @@ struct ContentView: View {
 			.navigationTitle("Discover")
 		}
 	}
-	
-	enum Example {
-		case shopping
-		case locationSearch
-		
-		var title: String {
-			switch self {
-			case .shopping:
-				return "Search for Products"
-			case .locationSearch:
-				return "Place of Interest"
-			}
-		}
-		
-		var activePlaceholder: String {
-			switch self {
-			case .shopping:
-				return "Search"
-			case .locationSearch:
-				return "Ex:"
-			}
-		}
-		
-		var inactivePlaceholder: String {
-			switch self {
-			case .shopping:
-				return "Search"
-			case .locationSearch:
-				return "Ex: 123 Clark St"
-			}
-		}
-		
-		var hints: [String] {
-			switch self {
-			case .shopping:
-				return ExampleHints.items
-			case .locationSearch:
-				return ExampleHints.locations
-			}
-		}
-	}
 }
 
 struct ContentView_Previews: PreviewProvider {

@@ -9,17 +9,22 @@ import SwiftUI
 
 struct HintCarouselView: View {
 	
-	let placeholder: String?
-	let hints: [String]
+	private let placeholder: String?
+	private let hints: [String]
 	
 	@State private var currentIndex: Int = 0
+	@State private var id: Bool = false
 	
 	private let timer = Timer.publish(every: 2.5, on: .main, in: .common).autoconnect()
+	
+	private let hintsCount: Int
 	
 	init(placeholder: String?, hints: [String]) {
 		self.placeholder = placeholder
 		self.hints = hints
-		self.currentIndex = randomStartIndex
+		
+		hintsCount = hints.count
+		currentIndex = Int.random(in: 0..<hints.count)
 	}
 	
 	// MARK: - Body
@@ -30,28 +35,20 @@ struct HintCarouselView: View {
 				Text(placeholder)
 			}
 			
-			ForEach(hintData, id: \.0) { (index, hint) in
-				if currentIndex % hints.count == index {
-					Text(hint.quoted())
-						.transition(textTransition)
-				}
-			}
+			Text(hints[currentIndex].quoted())
+				.transition(textTransition)
+				.id(id)
 			
 			Spacer()
 		}
 		.foregroundStyle(.secondary)
 		.tint(.secondary)
-		.onAppear { currentIndex = randomStartIndex }
 		.onReceive(timer) { _ in
 			withAnimation { updateCurrentIndex() }
 		}
 	}
 	
 	// MARK: - Helpers
-	
-	private var hintData: [(Int, String)] {
-		Array(zip(hints.indices, hints))
-	}
 	
 	private var textTransition: AnyTransition {
 		AnyTransition.asymmetric(
@@ -60,16 +57,9 @@ struct HintCarouselView: View {
 		)
 	}
 	
-	private var randomStartIndex: Int {
-		Int.random(in: 0..<hints.count)
-	}
-	
 	private func updateCurrentIndex() {
-		if currentIndex == hints.count - 1 {
-			currentIndex = 0
-		} else {
-			currentIndex += 1
-		}
+		currentIndex = (currentIndex + 1) % hintsCount
+		id.toggle()
 	}
 }
 
