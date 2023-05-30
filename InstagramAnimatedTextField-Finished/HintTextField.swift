@@ -33,7 +33,6 @@ struct HintTextField: View {
 				ZStack {
 					if showingCarousel {
 						HintCarouselView(placeholder: activePlaceholder, hints: hints)
-							.allowsHitTesting(false)
 					}
 					
 					HStack {
@@ -90,6 +89,8 @@ struct HintTextField: View {
 	}
 }
 
+// MARK: - Previews -
+
 struct HintTextField_Previews: PreviewProvider {
 	static var previews: some View {
 		HintTextField(
@@ -97,7 +98,7 @@ struct HintTextField_Previews: PreviewProvider {
 			text: .constant(""),
 			inactivePlaceholder: "Search",
 			activePlaceholder: "Search",
-			hints: ExampleHints.items
+			hints: ExampleHints.shopping
 		)
 	}
 }

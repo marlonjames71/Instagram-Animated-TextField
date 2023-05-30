@@ -10,7 +10,7 @@ import Foundation
 // MARK: - Hint
 
 enum ExampleHints {
-	static let items = [
+	static let shopping = [
 		"watercolor",
 		"home spa",
 		"jazz guitar",
@@ -45,7 +45,7 @@ extension Example {
 		title: "Search for Products",
 		activePlaceholder: "Search",
 		inactivePlaceholder: "Search",
-		hints: ExampleHints.items
+		hints: ExampleHints.shopping
 	)
 }
 

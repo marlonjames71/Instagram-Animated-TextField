@@ -13,6 +13,8 @@ struct ContentView: View {
 	
 	private let example: Example = .shopping
 	
+	// MARK: - Body
+	
 	var body: some View {
 		NavigationView {
 			VStack(spacing: 4) {
@@ -51,6 +53,8 @@ struct ContentView: View {
 		}
 	}
 }
+
+// MARK: - Previews -
 
 struct ContentView_Previews: PreviewProvider {
 	static var previews: some View {

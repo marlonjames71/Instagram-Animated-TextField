@@ -19,6 +19,8 @@ struct HintCarouselView: View {
 	
 	private let hintsCount: Int
 	
+	// MARK: - Init
+	
 	init(placeholder: String?, hints: [String]) {
 		self.placeholder = placeholder
 		self.hints = hints
@@ -63,8 +65,10 @@ struct HintCarouselView: View {
 	}
 }
 
+// MARK: - Previews -
+
 struct HintCarouselView_Previews: PreviewProvider {
 	static var previews: some View {
-		HintCarouselView(placeholder: "Search", hints: ExampleHints.items)
+		HintCarouselView(placeholder: "Search", hints: ExampleHints.shopping)
 	}
 }
