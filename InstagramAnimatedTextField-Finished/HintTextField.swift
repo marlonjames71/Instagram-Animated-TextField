@@ -14,9 +14,30 @@ struct HintTextField: View {
 	let inactivePlaceholder: String
 	let activePlaceholder: String
 	let hints: [String]
+	let startIndex: HintCarouselView.StartIndex
+	
+	let onEditingChanged: ((Bool) -> Void)?
 	
 	@State private var showingCarousel = false
 	@State private var isEditing = false
+	
+	init(
+		icon: Image?,
+		text: Binding<String>,
+		inactivePlaceholder: String,
+		activePlaceholder: String,
+		hints: [String],
+		startIndex: HintCarouselView.StartIndex = .first,
+		onEditingChanged: ((Bool) -> Void)? = nil
+	) {
+		self.icon = icon
+		self._text = text
+		self.inactivePlaceholder = inactivePlaceholder
+		self.activePlaceholder = activePlaceholder
+		self.hints = hints
+		self.startIndex = startIndex
+		self.onEditingChanged = onEditingChanged
+	}
 	
 	// MARK: - Body
 	
@@ -32,7 +53,7 @@ struct HintTextField: View {
 				
 				ZStack {
 					if showingCarousel {
-						HintCarouselView(placeholder: activePlaceholder, hints: hints)
+						HintCarouselView(placeholder: activePlaceholder, hints: hints, startIndex: startIndex)
 					}
 					
 					HStack {
@@ -41,9 +62,9 @@ struct HintTextField: View {
 							withAnimation(.spring(response: 0.3, dampingFraction: 0.4, blendDuration: 0)) {
 								self.isEditing = isEditing
 							}
+							onEditingChanged?(isEditing)
 						}
 						.textInputAutocapitalization(.never)
-						.tint(.cyan)
 						.onChange(of: text) { newValue in
 							showingCarousel = newValue.isEmpty && isEditing
 						}

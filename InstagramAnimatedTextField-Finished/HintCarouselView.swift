@@ -12,21 +12,32 @@ struct HintCarouselView: View {
 	private let placeholder: String?
 	private let hints: [String]
 	
-	@State private var currentIndex: Int = 0
+	@State private var currentIndex: Int
 	@State private var id: Bool = false
 	
 	private let timer = Timer.publish(every: 2.5, on: .main, in: .common).autoconnect()
 	
 	private let hintsCount: Int
 	
+	enum StartIndex {
+		case random
+		case first
+	}
+	
 	// MARK: - Init
 	
-	init(placeholder: String?, hints: [String]) {
+	init(placeholder: String?, hints: [String], startIndex: StartIndex) {
 		self.placeholder = placeholder
 		self.hints = hints
 		
 		hintsCount = hints.count
-		currentIndex = Int.random(in: 0..<hints.count)
+		
+		switch startIndex {
+		case .random:
+			_currentIndex = State(initialValue: Int.random(in: 0..<hints.count))
+		case .first:
+			_currentIndex = State(initialValue: 0)
+		}
 	}
 	
 	// MARK: - Body
@@ -69,6 +80,12 @@ struct HintCarouselView: View {
 
 struct HintCarouselView_Previews: PreviewProvider {
 	static var previews: some View {
-		HintCarouselView(placeholder: "Search", hints: ExampleHints.shopping)
+		VStack {
+			HintCarouselView(
+				placeholder: "Search",
+				hints: ExampleHints.shopping,
+				startIndex: .random
+			)
+		}
 	}
 }
